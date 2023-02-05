@@ -2,12 +2,13 @@
 * File name: testDisneyCharacter.cpp
 * Project name: PROG 1385 - A02 Disney Character
 * By: Xiao Xue
-* First version date: 
-* Description: 
+* First version date: Feb 4th 2023
+* Description: This program contains the test harness for the class DisneyCharacter. 2 characters named Mickey and Minnie are 
+*				instantiated then altered. The program then prints out each characters details, and what actions have been done
+*				to them. Program will end with message displayed about both objects being destroyed. 
 */
 
 #include "DisneyCharacter.h"
-
 
 int main(void)
 {
@@ -16,16 +17,14 @@ int main(void)
 	//instantiate minnie 
 	DisneyCharacter Minnie((char*)"Minnie", (char*)"1930-01-01");
 
-	DisneyCharacter Ariel((char*)"ArielArielArielArielArielArielArielArielArielArielAr", (char*)"wef", 2, 'T');
-
 	//set minnie's movies same as mickey's 
 	Minnie.SameMovies(Mickey);
 
-	//show information of both characers 
+	//show information of both characters 
 	Mickey.ShowInfo();
 	Minnie.ShowInfo();
-	Ariel.ShowInfo();
 
 	//place minnie in Epcot Park 
 	Minnie.PlaceCharacter('E');
+
 }
