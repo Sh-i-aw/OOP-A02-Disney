@@ -2,8 +2,9 @@
 * File name: DisneyCharacter.h
 * Project name: PROG 1385 - A02 Disney Character
 * By: Xiao Xue
-* First version date: 
-* Description: 
+* First version date: Feb 4th 2023
+* Description: This file contains the class definition of 'DisneyCharacter', the constants and librarys for the class methods, 
+*				and a const struct array storing all parks' abbreviations and names. 
 */
 
 #include <stdio.h>
@@ -15,12 +16,21 @@
 
 #define kName 51
 #define kDash 4
-#define kDashTwo 7
+#define kDash2 7
 #define kDate 11
 #define kPark 6
 #define kTrunc 46
 #define kNul "\0"
 
+
+/*
+* Class Name: DisneyCharacter 
+* Class Purpose: This class aim to model the disney characters who are present in Disney amusement parks. The class contains
+*				members indicating the character's name, date of creation, numbers of movies they've been in, and their current
+*				location. All characters of the class can be retrieved, though only the park location and numbers of movies can be
+*				updated/mutated. One may also set one characters' movie count the same as anothers. All details of a character 
+*				can be displayed by calling ShowInfo(). 
+*/
 class DisneyCharacter
 {
 private:
@@ -32,24 +42,23 @@ private:
 	char whichPark; // the Disney establishment where the character can be found 
 
 public:
-	char* getName(void);
-	char* getDate(void);
-	int getMovieNum(void);
-	bool setMovieNum(int newNum);
-	char getPark(void);
-	bool setPark(char newPark);
+	char* getName(void); //name getter
+	char* getDate(void); //creation date getter
+	int getMovieNum(void); //movie count getter
+	bool setMovieNum(int newNum); //movie count setter
+	char getPark(void); //park location getter
+	bool setPark(char newPark); //park location setter
 
-	void ShowInfo(void); 
-	bool PlaceCharacter(char whichPark); 
-	void SameMovies(DisneyCharacter& anotherCharacter);
+	void ShowInfo(void); //display all info
+	bool PlaceCharacter(char whichPark); //place character at another location
+	void SameMovies(DisneyCharacter& anotherCharacter); // duplicate one character's movie count to another character 
 
 	DisneyCharacter(char* name, char* creationDate, int numMovies, char whichPark); // constructor - 4 parameters
 	DisneyCharacter(char* name, char* creationDate);  // constructor - 2 parameters
 	~DisneyCharacter(void); //destructor
-
 };
 
-//const array to store all parks
+//const struct array to store all park abbreviation and names
 typedef struct park
 {
 	const char capital; 

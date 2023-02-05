@@ -2,8 +2,10 @@
 * File name: DisneyCharacter.cpp
 * Project name: PROG 1385 - A02 Disney Character
 * By: Xiao Xue
-* First version date:
-* Description:
+* First version date: Feb 5th 2023
+* Description: This file contains all of the methods definition for the class 'DisneyCharacter'.  It contains 2 constructors, 
+*				4 accessors, 2 mutators, and 2 public methods: one displaying all details of a character, and another placing 
+*				the character at a particular park location, given an abbreviation of a location as input.
 */
 
 #include "DisneyCharacter.h"
@@ -23,7 +25,6 @@ DisneyCharacter::DisneyCharacter(char* newName, char* newCreationDate, int newNu
 		strcpy(pModify, "...\0");
 	}
 	
-
 	//validate creationDate 
 	clearN(newCreationDate);
 	bool valid = true;
@@ -34,12 +35,12 @@ DisneyCharacter::DisneyCharacter(char* newName, char* newCreationDate, int newNu
 		for (int i = 0; i < kDate - 1; i++)
 		{
 			char check = newCreationDate[i];
-			if ((i == kDash || i == kDashTwo) && check != '-')
+			if ((i == kDash || i == kDash2) && check != '-')
 			{
 				valid = false;
 				break;
 			}
-			else if ((i != kDash && i != kDashTwo) && (isdigit(check) == 0))
+			else if ((i != kDash && i != kDash2) && (isdigit(check) == 0))
 			{
 				valid = false;
 				break;
@@ -78,11 +79,14 @@ DisneyCharacter::DisneyCharacter(char* newName, char* newCreationDate, int newNu
 		if (parks[i].capital == newWhichPark)
 		{
 			valid = true;
-			whichPark = newWhichPark;
 			break;
 		}
 	}
-	if (!valid)
+	if (valid)
+	{
+		whichPark = newWhichPark;
+	}
+	else
 	{
 		whichPark = 'N';
 	}
@@ -91,6 +95,7 @@ DisneyCharacter::DisneyCharacter(char* newName, char* newCreationDate, int newNu
 	strcpy(nameCopy, kNul);
 	strcpy(creationDateCopy, kNul);
 }
+
 
 
 //2 parameter constructor 
@@ -108,7 +113,6 @@ DisneyCharacter::DisneyCharacter(char* newName, char* newCreationDate)
 		strcpy(pModify, "...\0");
 	}
 
-
 	//validate creationDate 
 	clearN(newCreationDate);
 	bool valid = true;
@@ -119,12 +123,12 @@ DisneyCharacter::DisneyCharacter(char* newName, char* newCreationDate)
 		for (int i = 0; i < kDate - 1; i++)
 		{
 			char check = newCreationDate[i];
-			if ((i == kDash || i == kDashTwo) && check != '-')
+			if ((i == kDash || i == kDash2) && check != '-')
 			{
 				valid = false;
 				break;
 			}
-			else if ((i != kDash && i != kDashTwo) && (isdigit(check) == 0))
+			else if ((i != kDash && i != kDash2) && (isdigit(check) == 0))
 			{
 				valid = false;
 				break;
@@ -146,11 +150,9 @@ DisneyCharacter::DisneyCharacter(char* newName, char* newCreationDate)
 		strcpy(creationDate, kNul);
 	}
 
-	//default numMovies, default whichPark 
+	//default numMovies, default whichPark, also the string copies 
 	numMovies = 0; 
 	whichPark = 'N';
-
-	//initalize nameCopy and creationDate copy 
 	strcpy(nameCopy, kNul); 
 	strcpy(creationDateCopy, kNul);
 }
@@ -164,12 +166,15 @@ DisneyCharacter::~DisneyCharacter(void)
 }
 
 
+
 //name getter
 char* DisneyCharacter::getName(void)
 {
 	memcpy(nameCopy, name, kName);
 	return nameCopy;
 }
+
+
 
 //creation date getter
 char* DisneyCharacter::getDate(void)
@@ -201,11 +206,13 @@ bool DisneyCharacter::setMovieNum(int newNum)
 }
 
 
+
 //park getter
 char DisneyCharacter::getPark(void)
 {
 	return whichPark; 
 }
+
 
 
 //park setter
@@ -219,16 +226,20 @@ bool DisneyCharacter::setPark(char newPark)
 		{
 			valid = true;
 			whichPark = newPark;
-			break;
+			printf("%s's location has been set to \"%s.\"\n\n", name, parks[i].parkName);
+			return valid;
 		}
 	}
+	printf("Error: %c is not a valid input for park location.\n\n", whichPark);
 	return valid;
 }
+
+
 
 //print out all info for the character 
 void DisneyCharacter::ShowInfo(void)
 {
-	printf("\nCharacter's name: %s\n", name); 
+	printf("Character's name: %s\n", name); 
 	printf("%s's creation date: %s\n", name, creationDate); 
 	printf("%s has been in %d movies.\n", name, numMovies); 
 	int i = 0;
@@ -239,7 +250,14 @@ void DisneyCharacter::ShowInfo(void)
 			break;
 		}
 	}
-	printf("%s can be found at %s\n\n", name, parks[i].parkName);
+	if (whichPark == 'N')
+	{
+		printf("%s is currently not placed at any park.\n\n", name);
+	}
+	else
+	{
+		printf("%s can be found at %s.\n\n", name, parks[i].parkName);
+	}
 }
 
 
@@ -252,10 +270,12 @@ bool DisneyCharacter::PlaceCharacter(char whichPark)
 		if (parks[i].capital == whichPark)
 		{
 			valid = true;
-			whichPark = whichPark;
-			break;
+			this->whichPark = whichPark;
+			printf("%s has been placed in %s.\n\n", name, parks[i].parkName);
+			return valid;
 		}
 	}
+	printf("Error: %c is not a valid input for park location.\n\n", whichPark);
 	return valid;
 }
 
