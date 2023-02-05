@@ -9,7 +9,6 @@
 #include "DisneyCharacter.h"
 
 
-
 int main(void)
 {
 	//instantiate mickey 
@@ -17,12 +16,16 @@ int main(void)
 	//instantiate minnie 
 	DisneyCharacter Minnie((char*)"Minnie", (char*)"1930-01-01");
 
+	DisneyCharacter Ariel((char*)"ArielArielArielArielArielArielArielArielArielArielAr", (char*)"wef", 2, 'T');
+
 	//set minnie's movies same as mickey's 
 	Minnie.SameMovies(Mickey);
 
 	//show information of both characers 
 	Mickey.ShowInfo();
 	Minnie.ShowInfo();
+	Ariel.ShowInfo();
+
 	//place minnie in Epcot Park 
 	Minnie.PlaceCharacter('E');
 }
