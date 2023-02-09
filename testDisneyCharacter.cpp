@@ -12,9 +12,8 @@
 
 int main(void)
 {
-	//instantiate mickey 
+	//instantiate Mickey and Minnie 
 	DisneyCharacter Mickey((char*)"Mickey", (char*)"1929-01-01", 100, 'M');
-	//instantiate minnie 
 	DisneyCharacter Minnie((char*)"Minnie", (char*)"1930-01-01");
 
 	//set minnie's movies same as mickey's 
@@ -25,6 +24,5 @@ int main(void)
 	Minnie.ShowInfo();
 
 	//place minnie in Epcot Park 
-	Minnie.PlaceCharacter('E');
-
+	Minnie.PlaceCharacter('E'); 
 }
