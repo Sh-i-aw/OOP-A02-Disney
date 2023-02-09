@@ -13,15 +13,14 @@
 //4 paratermeter constructor 
 DisneyCharacter::DisneyCharacter(char* newName, char* newCreationDate, int newNumMovies, char newWhichPark)
 {
-	//validate name 
+	///validate name 
 	strncpy(name, newName, kName);
-	clearN(name);
+	clearN(name);  //clearing in case of keyboard input
 	int len = (int)strlen(name);
 	// if name is longer than 50, truncate to 46, append "..."
 	if (len > kName - 1)
 	{
-		char* pModify = name;
-		pModify += kTrunc;
+		char* pModify = name + kTrunc;
 		strcpy(pModify, "...\0");
 	}
 	
@@ -35,12 +34,13 @@ DisneyCharacter::DisneyCharacter(char* newName, char* newCreationDate, int newNu
 		for (int i = 0; i < kDate - 1; i++)
 		{
 			char check = newCreationDate[i];
-			if ((i == kDash || i == kDash2) && check != '-')
+			bool isDash = (i == kDash || i == kDash2);
+			if (isDash && check != '-')
 			{
 				valid = false;
 				break;
 			}
-			else if ((i != kDash && i != kDash2) && (isdigit(check) == 0))
+			else if (!isDash && (isdigit(check) == 0))
 			{
 				valid = false;
 				break;
@@ -108,8 +108,7 @@ DisneyCharacter::DisneyCharacter(char* newName, char* newCreationDate)
 	// if name is longer than 50, truncate to 46, append "..."
 	if (len > kName - 1)
 	{
-		char* pModify = name;
-		pModify += kTrunc;
+		char* pModify = name + kTrunc;
 		strcpy(pModify, "...\0");
 	}
 
@@ -123,12 +122,13 @@ DisneyCharacter::DisneyCharacter(char* newName, char* newCreationDate)
 		for (int i = 0; i < kDate - 1; i++)
 		{
 			char check = newCreationDate[i];
-			if ((i == kDash || i == kDash2) && check != '-')
+			bool isDash = (i == kDash || i == kDash2);
+			if (isDash && check != '-')
 			{
 				valid = false;
 				break;
 			}
-			else if ((i != kDash && i != kDash2) && (isdigit(check) == 0))
+			else if (!isDash && (isdigit(check) == 0))
 			{
 				valid = false;
 				break;
@@ -138,7 +138,7 @@ DisneyCharacter::DisneyCharacter(char* newName, char* newCreationDate)
 	else
 	{
 		valid = false;
-	}
+	} //end with creationDate 
 
 	// if valid, copy input to creationDate, if not, set it as blank (null) 
 	if (valid)
@@ -226,11 +226,9 @@ bool DisneyCharacter::setPark(char newPark)
 		{
 			valid = true;
 			whichPark = newPark;
-			printf("%s's location has been set to \"%s.\"\n\n", name, parks[i].parkName);
 			return valid;
 		}
 	}
-	printf("Error: %c is not a valid input for park location.\n\n", whichPark);
 	return valid;
 }
 
@@ -261,6 +259,7 @@ void DisneyCharacter::ShowInfo(void)
 }
 
 
+
 //place character
 bool DisneyCharacter::PlaceCharacter(char whichPark)
 {
@@ -271,13 +270,12 @@ bool DisneyCharacter::PlaceCharacter(char whichPark)
 		{
 			valid = true;
 			this->whichPark = whichPark;
-			printf("%s has been placed in %s.\n\n", name, parks[i].parkName);
 			return valid;
 		}
 	}
-	printf("Error: %c is not a valid input for park location.\n\n", whichPark);
 	return valid;
 }
+
 
 
 //copy numMovies from one character to another 
@@ -286,7 +284,9 @@ void DisneyCharacter::SameMovies(DisneyCharacter& anotherCharacter)
 	numMovies = anotherCharacter.getMovieNum();
 }
 
-//clear newline
+
+
+//clear newline in case of string are from keyboard input
 void clearN(char* input)
 {
 	char* newline = strchr(input, '\n'); 
